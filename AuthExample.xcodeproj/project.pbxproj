@@ -1,0 +1,267 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5BCFE019158BBE9E00484B3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCFE018158BBE9E00484B3F /* UIKit.framework */; };
+		5BCFE01B158BBE9E00484B3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCFE01A158BBE9E00484B3F /* Foundation.framework */; };
+		5BCFE01D158BBE9E00484B3F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCFE01C158BBE9E00484B3F /* CoreGraphics.framework */; };
+		5BCFE023158BBE9E00484B3F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BCFE021158BBE9E00484B3F /* InfoPlist.strings */; };
+		5BCFE025158BBE9E00484B3F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCFE024158BBE9E00484B3F /* main.m */; };
+		5BCFE029158BBE9E00484B3F /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCFE028158BBE9E00484B3F /* TBAppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5BCFE014158BBE9E00484B3F /* AuthExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BCFE018158BBE9E00484B3F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		5BCFE01A158BBE9E00484B3F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		5BCFE01C158BBE9E00484B3F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		5BCFE020158BBE9E00484B3F /* AuthExample-Info.plist */ = {isa = PBXFileReference; path = "AuthExample-Info.plist"; sourceTree = "<group>"; };
+		5BCFE022158BBE9E00484B3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5BCFE024158BBE9E00484B3F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5BCFE026158BBE9E00484B3F /* AuthExample-Prefix.pch */ = {isa = PBXFileReference; path = "AuthExample-Prefix.pch"; sourceTree = "<group>"; };
+		5BCFE027158BBE9E00484B3F /* TBAppDelegate.h */ = {isa = PBXFileReference; path = TBAppDelegate.h; sourceTree = "<group>"; };
+		5BCFE028158BBE9E00484B3F /* TBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5BCFE011158BBE9E00484B3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BCFE019158BBE9E00484B3F /* UIKit.framework in Frameworks */,
+				5BCFE01B158BBE9E00484B3F /* Foundation.framework in Frameworks */,
+				5BCFE01D158BBE9E00484B3F /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5BCFE009158BBE9D00484B3F = {
+			isa = PBXGroup;
+			children = (
+				5BCFE01E158BBE9E00484B3F /* AuthExample */,
+				5BCFE017158BBE9E00484B3F /* Frameworks */,
+				5BCFE015158BBE9E00484B3F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5BCFE015158BBE9E00484B3F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5BCFE014158BBE9E00484B3F /* AuthExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5BCFE017158BBE9E00484B3F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5BCFE018158BBE9E00484B3F /* UIKit.framework */,
+				5BCFE01A158BBE9E00484B3F /* Foundation.framework */,
+				5BCFE01C158BBE9E00484B3F /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5BCFE01E158BBE9E00484B3F /* AuthExample */ = {
+			isa = PBXGroup;
+			children = (
+				5BCFE027158BBE9E00484B3F /* TBAppDelegate.h */,
+				5BCFE028158BBE9E00484B3F /* TBAppDelegate.m */,
+				5BCFE01F158BBE9E00484B3F /* Supporting Files */,
+			);
+			path = AuthExample;
+			sourceTree = "<group>";
+		};
+		5BCFE01F158BBE9E00484B3F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5BCFE020158BBE9E00484B3F /* AuthExample-Info.plist */,
+				5BCFE021158BBE9E00484B3F /* InfoPlist.strings */,
+				5BCFE024158BBE9E00484B3F /* main.m */,
+				5BCFE026158BBE9E00484B3F /* AuthExample-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5BCFE013158BBE9E00484B3F /* AuthExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5BCFE02C158BBE9E00484B3F /* Build configuration list for PBXNativeTarget "AuthExample" */;
+			buildPhases = (
+				5BCFE010158BBE9E00484B3F /* Sources */,
+				5BCFE011158BBE9E00484B3F /* Frameworks */,
+				5BCFE012158BBE9E00484B3F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AuthExample;
+			productName = AuthExample;
+			productReference = 5BCFE014158BBE9E00484B3F /* AuthExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5BCFE00B158BBE9D00484B3F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TB;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "JAKOTA Cruise Systems GmbH";
+			};
+			buildConfigurationList = 5BCFE00E158BBE9D00484B3F /* Build configuration list for PBXProject "AuthExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 5BCFE009158BBE9D00484B3F;
+			productRefGroup = 5BCFE015158BBE9E00484B3F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5BCFE013158BBE9E00484B3F /* AuthExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5BCFE012158BBE9E00484B3F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BCFE023158BBE9E00484B3F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5BCFE010158BBE9E00484B3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BCFE025158BBE9E00484B3F /* main.m in Sources */,
+				5BCFE029158BBE9E00484B3F /* TBAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5BCFE021158BBE9E00484B3F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BCFE022158BBE9E00484B3F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5BCFE02A158BBE9E00484B3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5BCFE02B158BBE9E00484B3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5BCFE02D158BBE9E00484B3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AuthExample/AuthExample-Prefix.pch";
+				INFOPLIST_FILE = "AuthExample/AuthExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		5BCFE02E158BBE9E00484B3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AuthExample/AuthExample-Prefix.pch";
+				INFOPLIST_FILE = "AuthExample/AuthExample-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5BCFE00E158BBE9D00484B3F /* Build configuration list for PBXProject "AuthExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5BCFE02A158BBE9E00484B3F /* Debug */,
+				5BCFE02B158BBE9E00484B3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5BCFE02C158BBE9E00484B3F /* Build configuration list for PBXNativeTarget "AuthExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5BCFE02D158BBE9E00484B3F /* Debug */,
+				5BCFE02E158BBE9E00484B3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5BCFE00B158BBE9D00484B3F /* Project object */;
+}
