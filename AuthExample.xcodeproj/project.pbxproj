@@ -7,25 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B5162B2158BC38F00F19D35 /* TBCredentialsInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5162B0158BC38F00F19D35 /* TBCredentialsInputViewController.m */; };
+		5B5162B3158BC38F00F19D35 /* TBCredentialsInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B5162B1158BC38F00F19D35 /* TBCredentialsInputViewController.xib */; };
 		5BCFE019158BBE9E00484B3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCFE018158BBE9E00484B3F /* UIKit.framework */; };
 		5BCFE01B158BBE9E00484B3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCFE01A158BBE9E00484B3F /* Foundation.framework */; };
 		5BCFE01D158BBE9E00484B3F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCFE01C158BBE9E00484B3F /* CoreGraphics.framework */; };
 		5BCFE023158BBE9E00484B3F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BCFE021158BBE9E00484B3F /* InfoPlist.strings */; };
 		5BCFE025158BBE9E00484B3F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCFE024158BBE9E00484B3F /* main.m */; };
 		5BCFE029158BBE9E00484B3F /* TBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCFE028158BBE9E00484B3F /* TBAppDelegate.m */; };
+		5BCFE032158BBEEC00484B3F /* TBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCFE030158BBEEC00484B3F /* TBMainViewController.m */; };
+		5BCFE033158BBEEC00484B3F /* TBMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BCFE031158BBEEC00484B3F /* TBMainViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B5162AF158BC38F00F19D35 /* TBCredentialsInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBCredentialsInputViewController.h; path = ../TBCredentialsInputViewController.h; sourceTree = "<group>"; };
+		5B5162B0158BC38F00F19D35 /* TBCredentialsInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBCredentialsInputViewController.m; path = ../TBCredentialsInputViewController.m; sourceTree = "<group>"; };
+		5B5162B1158BC38F00F19D35 /* TBCredentialsInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TBCredentialsInputViewController.xib; path = ../TBCredentialsInputViewController.xib; sourceTree = "<group>"; };
 		5BCFE014158BBE9E00484B3F /* AuthExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BCFE018158BBE9E00484B3F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5BCFE01A158BBE9E00484B3F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5BCFE01C158BBE9E00484B3F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		5BCFE020158BBE9E00484B3F /* AuthExample-Info.plist */ = {isa = PBXFileReference; path = "AuthExample-Info.plist"; sourceTree = "<group>"; };
+		5BCFE020158BBE9E00484B3F /* AuthExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AuthExample-Info.plist"; sourceTree = "<group>"; };
 		5BCFE022158BBE9E00484B3F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5BCFE024158BBE9E00484B3F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		5BCFE026158BBE9E00484B3F /* AuthExample-Prefix.pch */ = {isa = PBXFileReference; path = "AuthExample-Prefix.pch"; sourceTree = "<group>"; };
-		5BCFE027158BBE9E00484B3F /* TBAppDelegate.h */ = {isa = PBXFileReference; path = TBAppDelegate.h; sourceTree = "<group>"; };
+		5BCFE026158BBE9E00484B3F /* AuthExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AuthExample-Prefix.pch"; sourceTree = "<group>"; };
+		5BCFE027158BBE9E00484B3F /* TBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		5BCFE028158BBE9E00484B3F /* TBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
+		5BCFE02F158BBEEC00484B3F /* TBMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBMainViewController.h; sourceTree = "<group>"; };
+		5BCFE030158BBEEC00484B3F /* TBMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBMainViewController.m; sourceTree = "<group>"; };
+		5BCFE031158BBEEC00484B3F /* TBMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBMainViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +85,12 @@
 				5BCFE027158BBE9E00484B3F /* TBAppDelegate.h */,
 				5BCFE028158BBE9E00484B3F /* TBAppDelegate.m */,
 				5BCFE01F158BBE9E00484B3F /* Supporting Files */,
+				5BCFE02F158BBEEC00484B3F /* TBMainViewController.h */,
+				5BCFE030158BBEEC00484B3F /* TBMainViewController.m */,
+				5BCFE031158BBEEC00484B3F /* TBMainViewController.xib */,
+				5B5162AF158BC38F00F19D35 /* TBCredentialsInputViewController.h */,
+				5B5162B0158BC38F00F19D35 /* TBCredentialsInputViewController.m */,
+				5B5162B1158BC38F00F19D35 /* TBCredentialsInputViewController.xib */,
 			);
 			path = AuthExample;
 			sourceTree = "<group>";
@@ -143,6 +159,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BCFE023158BBE9E00484B3F /* InfoPlist.strings in Resources */,
+				5BCFE033158BBEEC00484B3F /* TBMainViewController.xib in Resources */,
+				5B5162B3158BC38F00F19D35 /* TBCredentialsInputViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +173,8 @@
 			files = (
 				5BCFE025158BBE9E00484B3F /* main.m in Sources */,
 				5BCFE029158BBE9E00484B3F /* TBAppDelegate.m in Sources */,
+				5BCFE032158BBEEC00484B3F /* TBMainViewController.m in Sources */,
+				5B5162B2158BC38F00F19D35 /* TBCredentialsInputViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +280,7 @@
 				5BCFE02E158BBE9E00484B3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
