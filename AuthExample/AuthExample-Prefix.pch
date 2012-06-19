@@ -12,3 +12,11 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+#import "MKNetworkKit.h"
+
+#warning set your server and adjust the path here...
+#define kApiServer                          @"server.domain.tld"
+#define kApiLoginPath                       @"/User/login/XXX/%@/%@"
+#define kGotAuthResponseNotification        @"TBGotAuthResponseNotification"
+#define kCredentialsDidChangeNotification   @"TBCredentialsDidChangeNotification"

@@ -9,13 +9,13 @@
 #import "TBMainViewController.h"
 #import "TBCredentialsInputViewController.h"
 
+
 @interface TBMainViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel *credentialsInfoLabel;
 
 - (void)makeNetworkCall;
 - (IBAction)openCredentialsInputViewController:(id)sender;
-
 
 @end
 
@@ -35,13 +35,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(credentialsDidChange:) 
-                                                 name:@"TBCredentialsDidChange"
+                                                 name:kCredentialsDidChangeNotification
                                                object:nil];
-    
 }
 
 - (void)viewDidUnload
@@ -67,51 +65,59 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+/**********************************************************************************************************/
+#pragma mark - dummy to trigger an initial call
+/**********************************************************************************************************/
 - (void)makeNetworkCall {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:@"username"] || ![defaults objectForKey:@"password"]) {
-        NSLog(@"no credentials set!");
+        
+        // no credentials given yet, so trigger the input
         TBCredentialsInputViewController *credentialsInputViewController = [[TBCredentialsInputViewController alloc]initWithNibName:@"TBCredentialsInputViewController" 
-                                                                                                                             bundle:nil];
+                                                                                                                             bundle:nil]; 
         credentialsInputViewController.delegate = self;
-        NSLog(@"civc: %@", credentialsInputViewController);
-        self.modalPresentationStyle = UIModalPresentationCurrentContext;
+        self.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentModalViewController:credentialsInputViewController
                                 animated:YES];
         
         
     } else {
         
+        // we do have credentials, so show them
         self.credentialsInfoLabel.text = [NSString stringWithFormat:@"%@/%@", [defaults objectForKey:@"username"], [defaults objectForKey:@"password"]];
 
     }
     
-    
-    
-    
 }
 
+/**********************************************************************************************************/
 #pragma mark - user triggered actions 
+/**********************************************************************************************************/
 - (IBAction)openCredentialsInputViewController:(id)sender {
-    TBCredentialsInputViewController *civc = [[TBCredentialsInputViewController alloc]initWithNibName:@"TBCredentialsInputViewController"
-                                                                                               bundle:nil];
+    TBCredentialsInputViewController *civc = [[TBCredentialsInputViewController alloc]
+                                              initWithNibName:@"TBCredentialsInputViewController" 
+                                              bundle:nil];
     civc.delegate = self;
     [self presentModalViewController:civc 
                             animated:YES];
 }
 
-
+/**********************************************************************************************************/
 #pragma mark - notification handler
-- (void) credentialsDidChange:(NSNotification *) notification {
+/**********************************************************************************************************/
+- (void)credentialsDidChange:(NSNotification *) notification {
     NSDictionary *userInfo = notification.userInfo;
     
-    self.credentialsInfoLabel.text = [NSString stringWithFormat:@"%@/%@", [userInfo objectForKey:@"username"], [userInfo objectForKey:@"password"]];
+    self.credentialsInfoLabel.text = [NSString stringWithFormat:@"%@/%@", 
+                                      [userInfo objectForKey:@"username"], 
+                                      [userInfo objectForKey:@"password"]];
 }
 
-
+/**********************************************************************************************************/
 #pragma mark - TBCredentialsInputViewControllerDelegate methods
+/**********************************************************************************************************/
 - (void)didClose {
     [self dismissModalViewControllerAnimated:YES];
 }

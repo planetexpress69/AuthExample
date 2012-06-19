@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AuthTestEngine.h"
 
 @protocol TBCredentialsInputViewControllerDelegate
 - (void)didClose;
@@ -15,5 +16,6 @@
 @interface TBCredentialsInputViewController : UIViewController
 
 @property (nonatomic, assign) id<TBCredentialsInputViewControllerDelegate> delegate;
+
 
 @end
