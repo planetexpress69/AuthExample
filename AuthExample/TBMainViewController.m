@@ -25,11 +25,6 @@
 
 @synthesize credentialsInfoLabel = _credentialsInfoLabel;
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    DLog(@"Boing!!! %@", change);
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -43,6 +38,7 @@
 {
     [super viewDidLoad];
     
+    // register self as observer of the apiKey
     [TheApp addObserver:self forKeyPath:@"apiKey" options:NSKeyValueObservingOptionNew context:nil];
     
 }
@@ -69,6 +65,18 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+/**********************************************************************************************************/
+#pragma mark - KVO payload
+/**********************************************************************************************************/
+- (void)observeValueForKeyPath:(NSString *)keyPath 
+                      ofObject:(id)object 
+                        change:(NSDictionary *)change 
+                       context:(void *)context
+{
+    DLog(@"Boing!!! %@", change);
+}
+
 
 /**********************************************************************************************************/
 #pragma mark - dummy to trigger an initial call
@@ -113,13 +121,12 @@
                                                        NSDictionary *oError = [[json objectForKey:@"return"]objectForKey:@"error"];
                                                        if (oError) {
                                                            DLog(@"Error %@ - %@", [oError objectForKey:@"code"], [oError objectForKey:@"message"]);
-                                                           NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[oError objectForKey:@"message"]
-                                                                                                                forKey:@"message"];
-                                                           [[NSNotificationCenter defaultCenter] postNotificationName:kGotAuthResponseNotification
-                                                                                                               object:nil 
-                                                                                                             userInfo:userInfo];
+                                                           self.credentialsInfoLabel.text = [oError objectForKey:@"message"];
                                                        }
                                                    }
+                                               } else {
+                                                   //TODO: get visual here...
+                                                   DLog(@"error: %@", parseError);
                                                }
                                            } onError:^(NSError *error) {
                                                //TODO: get visual here...
