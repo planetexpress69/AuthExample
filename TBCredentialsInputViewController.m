@@ -7,6 +7,8 @@
 //
 
 #import "TBCredentialsInputViewController.h"
+#import "AuthTestEngine.h"
+#import "TBAppDelegate.h"
 
 
 @interface TBCredentialsInputViewController ()
@@ -16,7 +18,6 @@
 @property (strong, nonatomic) IBOutlet UIButton                 *okButton;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView  *spinner;
 @property (strong, nonatomic) IBOutlet UILabel                  *statusLabel;
-@property (strong, nonatomic) AuthTestEngine                    *authTestEngine;
 
 - (IBAction)buttonPressed:(id)sender;
 
@@ -30,7 +31,6 @@
 @synthesize spinner             = _spinner;
 @synthesize statusLabel         = _statusLabel;
 @synthesize delegate            = _delegate;
-@synthesize authTestEngine      = _authTestEngine;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,16 +46,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(processAuthResponse:) 
-                                                 name:kGotAuthResponseNotification 
-                                               object:nil];
     
-    self.authTestEngine = [[AuthTestEngine alloc]initWithHostName:kApiServer];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    
     
     self.usernameTextField.text = [userDefaults objectForKey:@"username"];
     self.passwordTextField.text = [userDefaults objectForKey:@"password"];
@@ -68,14 +61,13 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-
+    
 }
 
 - (IBAction)buttonPressed:(id)sender 
@@ -88,57 +80,55 @@
     NSString *sUsername = self.usernameTextField.text;
     NSString *sPassword = self.passwordTextField.text;
     
-    [self.authTestEngine getApiKeyForUsername:sUsername
-                                  andPassword:sPassword];
     
-}
-
-- (void)processAuthResponse:(NSNotification *)aNotification 
-{
-    
-    [self.spinner stopAnimating];
-        
-    BOOL isValid = ![aNotification.userInfo objectForKey:@"message"];
-    
-    if (isValid) {
-        
-        // 1. persist userDefaults
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:self.usernameTextField.text forKey:@"username"];
-        [userDefaults setObject:self.passwordTextField.text forKey:@"password"];
-        [userDefaults synchronize];
-        
-        // 2. extract apiKey from notification
-        NSString *sApiKey = [aNotification.userInfo objectForKey:@"apiKey"];
-
-        // 3. fire notification, 
-        // note: sufficent just to send empty notification 
-        // to trigger observer to re-read credentials!
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  self.usernameTextField.text, @"username", 
-                                  self.passwordTextField.text, @"password",
-                                  sApiKey, @"apiKey",
-                                  nil];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"TBCredentialsDidChangeNotification" 
-                                                            object:nil 
-                                                          userInfo:userInfo];
-        
-        // 4. dismiss the vc
-        [self.delegate didClose];
-    }
-    else {
-        
-        // we do not persist credentials
-        // we do not send a notification
-        // we do not get this VC dismissed
-        
-        // we just tell the user what's going on...
-        // TODO: add the ability to sign up or reset password...
-        self.statusLabel.text = [aNotification.userInfo objectForKey:@"message"];
-    }
-    
-    
+    [TheApp.authTestEngine getApiKeyForUsername:sUsername
+                                    andPassword:sPassword
+                                   onCompletion:^(MKNetworkOperation *completedOperation) {
+                                       [self.spinner stopAnimating];
+                                       
+                                       NSError *parseError;
+                                       NSDictionary *json = [NSJSONSerialization JSONObjectWithData:completedOperation.responseData
+                                                                                            options:kNilOptions
+                                                                                              error:&parseError];
+                                       
+                                       if (!parseError) {
+                                           
+                                           NSString *apiKey = [[json objectForKey:@"return"]objectForKey:@"key"];
+                                           
+                                           if (apiKey) {
+                                               
+                                               // 1. update key
+                                               [TheApp updateApiKey:apiKey];
+                                               
+                                               // 2. persist userDefaults
+                                               NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                                               [userDefaults setObject:self.usernameTextField.text forKey:@"username"];
+                                               [userDefaults setObject:self.passwordTextField.text forKey:@"password"];
+                                               [userDefaults synchronize];
+                                               
+                                               // 3. get the viewcontroller dismissed
+                                               [self.delegate didClose];
+                                               
+                                           } else {
+                                               
+                                               NSDictionary *oError = [[json objectForKey:@"return"]objectForKey:@"error"];
+                                               if (oError) {
+                                                   DLog(@"Error %@ - %@", [oError objectForKey:@"code"], [oError objectForKey:@"message"]);
+                                                   self.statusLabel.text = [oError objectForKey:@"message"];
+                                               }
+                                               
+                                           }
+                                           
+                                       }
+                                       
+                                       
+                                       
+                                       
+                                   } onError:^(NSError *error) {
+                                       [self.spinner stopAnimating];
+                                       
+                                       DLog(@"error: %@", error);
+                                   }];
     
 }
 

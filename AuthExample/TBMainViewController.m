@@ -8,6 +8,8 @@
 
 #import "TBMainViewController.h"
 #import "TBCredentialsInputViewController.h"
+#import "TBAppDelegate.h"
+#import "AuthTestEngine.h"
 
 
 @interface TBMainViewController ()
@@ -23,6 +25,11 @@
 
 @synthesize credentialsInfoLabel = _credentialsInfoLabel;
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    DLog(@"Boing!!! %@", change);
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -36,10 +43,8 @@
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(credentialsDidChange:) 
-                                                 name:kCredentialsDidChangeNotification
-                                               object:nil];
+    [TheApp addObserver:self forKeyPath:@"apiKey" options:NSKeyValueObservingOptionNew context:nil];
+    
 }
 
 - (void)viewDidUnload
@@ -87,9 +92,43 @@
         
         // we do have credentials, so show them
         self.credentialsInfoLabel.text = [NSString stringWithFormat:@"%@/%@", [defaults objectForKey:@"username"], [defaults objectForKey:@"password"]];
-
+        
+        // do we have an apiKey yet? ask the app delegate...
+        // since we do only store the credentials but not the apiKey we need to get a new one
+        if (!TheApp.apiKey) {
+            
+            [TheApp.authTestEngine getApiKeyForUsername:[defaults objectForKey:@"username"]
+                                            andPassword:[defaults objectForKey:@"password"]
+                                           onCompletion:^(MKNetworkOperation *completedOperation) {
+                                               
+                                               NSError *parseError;
+                                               NSDictionary *json = [NSJSONSerialization JSONObjectWithData:completedOperation.responseData
+                                                                                                    options:kNilOptions
+                                                                                                      error:&parseError];
+                                               if (!parseError) {
+                                                   NSString *apiKey = [[json objectForKey:@"return"]objectForKey:@"key"];
+                                                   if (apiKey) {
+                                                       [TheApp updateApiKey:apiKey];
+                                                   } else {
+                                                       NSDictionary *oError = [[json objectForKey:@"return"]objectForKey:@"error"];
+                                                       if (oError) {
+                                                           DLog(@"Error %@ - %@", [oError objectForKey:@"code"], [oError objectForKey:@"message"]);
+                                                           NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[oError objectForKey:@"message"]
+                                                                                                                forKey:@"message"];
+                                                           [[NSNotificationCenter defaultCenter] postNotificationName:kGotAuthResponseNotification
+                                                                                                               object:nil 
+                                                                                                             userInfo:userInfo];
+                                                       }
+                                                   }
+                                               }
+                                           } onError:^(NSError *error) {
+                                               //TODO: get visual here...
+                                               DLog(@"error: %@", error);
+                                           }];
+        } else {
+            DLog(@"already have an apiKey: %@", TheApp.apiKey);
+        }
     }
-    
 }
 
 /**********************************************************************************************************/
@@ -102,17 +141,6 @@
     civc.delegate = self;
     [self presentModalViewController:civc 
                             animated:YES];
-}
-
-/**********************************************************************************************************/
-#pragma mark - notification handler
-/**********************************************************************************************************/
-- (void)credentialsDidChange:(NSNotification *) notification {
-    NSDictionary *userInfo = notification.userInfo;
-    
-    self.credentialsInfoLabel.text = [NSString stringWithFormat:@"%@/%@", 
-                                      [userInfo objectForKey:@"username"], 
-                                      [userInfo objectForKey:@"password"]];
 }
 
 /**********************************************************************************************************/

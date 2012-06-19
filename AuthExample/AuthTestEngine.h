@@ -10,6 +10,12 @@
 
 @interface AuthTestEngine : MKNetworkEngine
 
-- (void)getApiKeyForUsername:(NSString *)sUsername andPassword:(NSString *)sPassword;
+//- (void)getApiKeyForUsername:(NSString *)sUsername andPassword:(NSString *)sPassword;
+
+typedef void (^NetworkApiKeyResponseBlock)(MKNetworkOperation *completedOperation);
+
+-(void) getApiKeyForUsername:(NSString *)sUsername andPassword:(NSString *)sPassword
+    onCompletion:(NetworkApiKeyResponseBlock) completionBlock
+         onError:(MKNKErrorBlock) errorBlock;
 
 @end

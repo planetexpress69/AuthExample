@@ -7,10 +7,13 @@
 //
 
 #import "AuthTestEngine.h"
+#import "TBAppDelegate.h"
 
 @implementation AuthTestEngine
 
-- (void)getApiKeyForUsername:(NSString *)sUsername andPassword:(NSString *)sPassword {
+-(void) getApiKeyForUsername:(NSString *)sUsername andPassword:(NSString *)sPassword
+    onCompletion:(NetworkApiKeyResponseBlock) completionBlock
+         onError:(MKNKErrorBlock) errorBlock {
     
     NSString *encodedUsername = [sUsername urlEncodedString];
     NSString *encodedPassword = [sPassword urlEncodedString];
@@ -18,7 +21,7 @@
     NSString *sPath = [NSString stringWithFormat:kApiLoginPath, 
                        encodedUsername, 
                        encodedPassword];
-
+    
     NSMutableDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                    @"json", @"apiOut", 
                                    nil];
@@ -28,53 +31,19 @@
                                           httpMethod:@"GET" 
                                                  ssl:YES];
     
-    [op onCompletion:^(MKNetworkOperation *operation) {
+    [op onCompletion:^(MKNetworkOperation *completedOperation) {
         
-        NSError *parseError;
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:operation.responseData
-                                                             options:kNilOptions
-                                                               error:&parseError];
+        completionBlock(completedOperation);
         
-        if (!parseError) {
-            
-            NSString *apiKey = [[json objectForKey:@"return"]objectForKey:@"key"];
-            
-            if (apiKey) {
-                
-                NSDictionary *userInfo = [NSDictionary dictionaryWithObject:apiKey 
-                                                                     forKey:@"apiKey"];
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:kGotAuthResponseNotification
-                                                                    object:nil 
-                                                                  userInfo:userInfo];
-            } else {
-                
-                NSDictionary *oError = [[json objectForKey:@"return"]objectForKey:@"error"];
-                
-                if (oError) {
-                    DLog(@"Error %@ - %@", [oError objectForKey:@"code"], [oError objectForKey:@"message"]);
-                    
-                    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[oError objectForKey:@"message"]
-                                                                         forKey:@"message"];
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kGotAuthResponseNotification
-                                                                        object:nil 
-                                                                      userInfo:userInfo];
-                }
-                
-            }
-            
-        }
         
-    } onError:^(NSError *error) {
+
         
-        DLog(@"%@", [error localizedDescription]);         
-        
+    } onError:^(NSError* error) {
+        DLog(@"%@", [error localizedDescription]);
+        errorBlock(error);
     }];
     
     [self enqueueOperation:op];
-    
 }
-
 
 @end

@@ -11,12 +11,14 @@
 
 @implementation TBAppDelegate
 
-@synthesize window = _window;
+@synthesize window          = _window;
+@synthesize apiKey          = _apiKey;
+@synthesize authTestEngine  = _authTestEngine;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
+    
     TBMainViewController *mainViewController = [[TBMainViewController alloc]initWithNibName:@"TBMainViewController"
                                                                                      bundle:nil];
     
@@ -24,6 +26,9 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    self.authTestEngine = [[AuthTestEngine alloc]initWithHostName:kApiServer];
+    
     return YES;
 }
 
@@ -52,6 +57,12 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)updateApiKey:(NSString *)anApiKey {
+    //[self willChangeValueForKey:@"apiKey"];
+    self.apiKey = anApiKey;
+    //[self didChangeValueForKey:@"apiKey"];
 }
 
 @end

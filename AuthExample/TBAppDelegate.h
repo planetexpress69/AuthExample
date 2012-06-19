@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AuthTestEngine.h"
+
+// shorthand to access the delegate
+#define TheApp ((TBAppDelegate *)[UIApplication sharedApplication].delegate)
 
 @interface TBAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIWindow          *window;
+@property (strong, nonatomic) NSString          *apiKey;
+@property (strong, nonatomic) AuthTestEngine    *authTestEngine;
+
+- (void)updateApiKey:(NSString *)anApiKey;
 
 @end
