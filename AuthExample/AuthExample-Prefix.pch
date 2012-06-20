@@ -16,5 +16,5 @@
 #import "MKNetworkKit.h"
 
 #warning set your server and adjust the path here...
-#define kApiServer                          @"api.fleetmon.com"
-#define kApiLoginPath                       @"/User/login/www.fleetmon.com/%@/%@"
+#define kApiServer                          @""
+#define kApiLoginPath                       @"/User/login/wfc/%@/%@"

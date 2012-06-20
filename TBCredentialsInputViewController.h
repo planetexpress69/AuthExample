@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+
 @protocol TBCredentialsInputViewControllerDelegate
 - (void)didClose;
 @end
 
 @interface TBCredentialsInputViewController : UIViewController
 
-@property (nonatomic, assign) id<TBCredentialsInputViewControllerDelegate> delegate;
-
+@property (nonatomic, weak) id<TBCredentialsInputViewControllerDelegate> delegate;
 
 @end

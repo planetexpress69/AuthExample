@@ -121,13 +121,12 @@
                                            
                                        }
                                        
-                                       
-                                       
-                                       
                                    } onError:^(NSError *error) {
                                        [self.spinner stopAnimating];
                                        
-                                       DLog(@"error: %@", error);
+                                       self.statusLabel.text = [error localizedDescription];
+                                       
+                                       [self.delegate didClose];
                                    }];
     
 }

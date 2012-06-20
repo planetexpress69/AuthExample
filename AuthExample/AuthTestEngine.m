@@ -12,7 +12,7 @@
 @implementation AuthTestEngine
 
 -(void) getApiKeyForUsername:(NSString *)sUsername andPassword:(NSString *)sPassword
-    onCompletion:(NetworkApiKeyResponseBlock) completionBlock
+    onCompletion:(MKNKResponseBlock) completionBlock
          onError:(MKNKErrorBlock) errorBlock {
     
     NSString *encodedUsername = [sUsername urlEncodedString];

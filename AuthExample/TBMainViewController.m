@@ -130,7 +130,17 @@
                                                }
                                            } onError:^(NSError *error) {
                                                //TODO: get visual here...
-                                               DLog(@"error: %@", error);
+                                               DLog(@"error: %@", [error localizedDescription]);
+                                               
+                                               UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Network error" 
+                                                                                                  message:[error localizedDescription] 
+                                                                                                 delegate:nil 
+                                                                                        cancelButtonTitle:nil 
+                                                                                        otherButtonTitles:@"OK", 
+                                                                         nil];
+                                               [alertView show];
+                                               
+                                               
                                            }];
         } else {
             DLog(@"already have an apiKey: %@", TheApp.apiKey);

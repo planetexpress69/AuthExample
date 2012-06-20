@@ -12,5 +12,4 @@
 
 @interface TBMainViewController : UIViewController <TBCredentialsInputViewControllerDelegate>
 
-
 @end

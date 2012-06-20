@@ -12,10 +12,10 @@
 
 //- (void)getApiKeyForUsername:(NSString *)sUsername andPassword:(NSString *)sPassword;
 
-typedef void (^NetworkApiKeyResponseBlock)(MKNetworkOperation *completedOperation);
+//typedef void (^NetworkApiKeyResponseBlock)(MKNetworkOperation *completedOperation);
 
 -(void) getApiKeyForUsername:(NSString *)sUsername andPassword:(NSString *)sPassword
-    onCompletion:(NetworkApiKeyResponseBlock) completionBlock
+    onCompletion:(MKNKResponseBlock) completionBlock
          onError:(MKNKErrorBlock) errorBlock;
 
 @end
