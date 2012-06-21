@@ -90,7 +90,6 @@
                                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:completedOperation.responseData
                                                                                             options:kNilOptions
                                                                                               error:&parseError];
-                                       
                                        if (!parseError) {
                                            
                                            NSString *apiKey = [[json objectForKey:@"return"]objectForKey:@"key"];
@@ -119,6 +118,8 @@
                                                
                                            }
                                            
+                                       } else {
+                                           DLog(@"parsing error: %@", parseError);
                                        }
                                        
                                    } onError:^(NSError *error) {

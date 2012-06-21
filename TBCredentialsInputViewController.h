@@ -14,7 +14,5 @@
 @end
 
 @interface TBCredentialsInputViewController : UIViewController
-
 @property (nonatomic, weak) id<TBCredentialsInputViewControllerDelegate> delegate;
-
 @end

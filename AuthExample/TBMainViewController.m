@@ -10,19 +10,16 @@
 #import "TBCredentialsInputViewController.h"
 #import "TBAppDelegate.h"
 #import "AuthTestEngine.h"
+#import "YRDropdownView.h"
 
 
 @interface TBMainViewController ()
-
 @property (strong, nonatomic) IBOutlet UILabel *credentialsInfoLabel;
-
 - (void)makeNetworkCall;
 - (IBAction)openCredentialsInputViewController:(id)sender;
-
 @end
 
 @implementation TBMainViewController
-
 @synthesize credentialsInfoLabel = _credentialsInfoLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,7 +47,6 @@
     // e.g. self.myOutlet = nil;
     self.credentialsInfoLabel = nil;
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -74,14 +70,23 @@
                         change:(NSDictionary *)change 
                        context:(void *)context
 {
-    DLog(@"Boing!!! %@", change);
+    
+    // woooo! apiKey got changed... so tell it to the user.
+    [YRDropdownView showDropdownInView:self.view 
+                                 title:@"AutResult" 
+                                detail:[NSString stringWithFormat:@"key: %@", [change objectForKey:@"new"]]
+                                 image:nil
+                       backgroundImage:nil 
+                              animated:YES 
+                             hideAfter:40.0];
 }
 
 
 /**********************************************************************************************************/
-#pragma mark - dummy to trigger an initial call
+#pragma mark - Dummy to trigger an initial call. blueprint for networking calls.
 /**********************************************************************************************************/
-- (void)makeNetworkCall {
+- (void)makeNetworkCall 
+{
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -94,7 +99,6 @@
         self.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentModalViewController:credentialsInputViewController
                                 animated:YES];
-        
         
     } else {
         
@@ -110,36 +114,59 @@
                                            onCompletion:^(MKNetworkOperation *completedOperation) {
                                                
                                                NSError *parseError;
+                                               
+                                               // TODO: switch to other JSON parsing, this one relies on iOS 5.0 
                                                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:completedOperation.responseData
                                                                                                     options:kNilOptions
                                                                                                       error:&parseError];
                                                if (!parseError) {
                                                    NSString *apiKey = [[json objectForKey:@"return"]objectForKey:@"key"];
                                                    if (apiKey) {
+                                                       
                                                        [TheApp updateApiKey:apiKey];
+                                                       
                                                    } else {
+                                                       
                                                        NSDictionary *oError = [[json objectForKey:@"return"]objectForKey:@"error"];
+                                                       
                                                        if (oError) {
-                                                           DLog(@"Error %@ - %@", [oError objectForKey:@"code"], [oError objectForKey:@"message"]);
-                                                           self.credentialsInfoLabel.text = [oError objectForKey:@"message"];
+                                                           
+                                                           [YRDropdownView showDropdownInView:self.view
+                                                                                        title:@"Error" 
+                                                                                       detail:[oError objectForKey:@"message"]
+                                                                                        image:nil 
+                                                                                     animated:YES
+                                                                                    hideAfter:3.0];
+                                                       
+                                                       } else {
+                                                           
+                                                           [YRDropdownView showDropdownInView:self.view
+                                                                                        title:@"Error" 
+                                                                                       detail:@"Wrong API call. Try again later." 
+                                                                                        image:nil 
+                                                                                     animated:YES
+                                                                                    hideAfter:3.0];
+                                                           
                                                        }
                                                    }
                                                } else {
-                                                   //TODO: get visual here...
-                                                   DLog(@"error: %@", parseError);
+                                                   
+                                                   [YRDropdownView showDropdownInView:self.view
+                                                                                title:@"Error" 
+                                                                               detail:@"Garbled answer. Try again later." 
+                                                                                image:nil 
+                                                                             animated:YES
+                                                                            hideAfter:3.0];
                                                }
                                            } onError:^(NSError *error) {
-                                               //TODO: get visual here...
-                                               DLog(@"error: %@", [error localizedDescription]);
                                                
-                                               UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Network error" 
-                                                                                                  message:[error localizedDescription] 
-                                                                                                 delegate:nil 
-                                                                                        cancelButtonTitle:nil 
-                                                                                        otherButtonTitles:@"OK", 
-                                                                         nil];
-                                               [alertView show];
-                                               
+                                               [YRDropdownView showDropdownInView:self.view
+                                                                            title:@"Error" 
+                                                                           detail:[error localizedDescription] 
+                                                                            image:nil 
+                                                                  backgroundImage:nil 
+                                                                         animated:YES 
+                                                                        hideAfter:2.0];
                                                
                                            }];
         } else {
@@ -149,7 +176,7 @@
 }
 
 /**********************************************************************************************************/
-#pragma mark - user triggered actions 
+#pragma mark - User triggered actions. 
 /**********************************************************************************************************/
 - (IBAction)openCredentialsInputViewController:(id)sender {
     TBCredentialsInputViewController *civc = [[TBCredentialsInputViewController alloc]
@@ -161,7 +188,7 @@
 }
 
 /**********************************************************************************************************/
-#pragma mark - TBCredentialsInputViewControllerDelegate methods
+#pragma mark - TBCredentialsInputViewControllerDelegate methods.
 /**********************************************************************************************************/
 - (void)didClose {
     [self dismissModalViewControllerAnimated:YES];

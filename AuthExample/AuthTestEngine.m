@@ -11,9 +11,10 @@
 
 @implementation AuthTestEngine
 
--(void) getApiKeyForUsername:(NSString *)sUsername andPassword:(NSString *)sPassword
-    onCompletion:(MKNKResponseBlock) completionBlock
-         onError:(MKNKErrorBlock) errorBlock {
+-(void) getApiKeyForUsername:(NSString *)sUsername 
+                 andPassword:(NSString *)sPassword 
+                onCompletion:(MKNKResponseBlock) completionBlock 
+                     onError:(MKNKErrorBlock) errorBlock {
     
     NSString *encodedUsername = [sUsername urlEncodedString];
     NSString *encodedPassword = [sPassword urlEncodedString];
@@ -33,14 +34,12 @@
     
     [op onCompletion:^(MKNetworkOperation *completedOperation) {
         
-        completionBlock(completedOperation);
-        
-        
-
+        completionBlock(completedOperation);        
         
     } onError:^(NSError* error) {
-        DLog(@"%@", [error localizedDescription]);
+
         errorBlock(error);
+    
     }];
     
     [self enqueueOperation:op];
